@@ -35,9 +35,11 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     onPress: () {
-                      setState(() {
-                        selectedGender = Gender.male;
-                      });
+                      setState(
+                        () {
+                          selectedGender = Gender.male;
+                        },
+                      );
                     },
                     colour: selectedGender == Gender.male
                         ? kActiveCardColor
@@ -51,9 +53,11 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     onPress: () {
-                      setState(() {
-                        selectedGender = Gender.female;
-                      });
+                      setState(
+                        () {
+                          selectedGender = Gender.female;
+                        },
+                      );
                     },
                     colour: selectedGender == Gender.female
                         ? kActiveCardColor
@@ -92,22 +96,25 @@ class _InputPageState extends State<InputPage> {
                     ),
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
-                          inactiveTrackColor: Color(0xFF8D8E98),
-                          activeTrackColor: Colors.white,
-                          thumbColor: Color(0xFFEB1555),
-                          overlayColor: Color(0x29EB1555),
-                          thumbShape:
-                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                          overlayShape:
-                              RoundSliderOverlayShape(overlayRadius: 30.0)),
+                        inactiveTrackColor: Color(0xFF8D8E98),
+                        activeTrackColor: Colors.white,
+                        thumbColor: Color(0xFFEB1555),
+                        overlayColor: Color(0x29EB1555),
+                        thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30.0),
+                      ),
                       child: Slider(
                         value: height.toDouble(),
                         min: 120.0,
                         max: 220.0,
                         onChanged: (double newValue) {
-                          setState(() {
-                            height = newValue.round();
-                          });
+                          setState(
+                            () {
+                              height = newValue.round();
+                            },
+                          );
                         },
                       ),
                     )
@@ -139,9 +146,11 @@ class _InputPageState extends State<InputPage> {
                             RoundIconButton(
                               icon: FontAwesomeIcons.minus,
                               onPressed: () {
-                                setState(() {
-                                  weight--;
-                                });
+                                setState(
+                                  () {
+                                    weight--;
+                                  },
+                                );
                               },
                             ),
                             SizedBox(
@@ -150,62 +159,65 @@ class _InputPageState extends State<InputPage> {
                             RoundIconButton(
                               icon: FontAwesomeIcons.plus,
                               onPressed: () {
-                                setState(() {
-                                  weight++;
-                                });
+                                setState(
+                                  () {
+                                    weight++;
+                                  },
+                                );
                               },
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
                 Expanded(
-                    child: ReusableCard(
-                  colour: kActiveCardColor,
-                  cardChild: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'AGE',
-                        style: kLabelTextStyle,
-                      ),
-                      Text(
-                        age.toString(),
-                        style: kNumberTextStyle,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          RoundIconButton(
-                            icon: FontAwesomeIcons.minus,
-                            onPressed: () {
-                              setState(
-                                () {
-                                  age--;
-                                },
-                              );
-                            },
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          RoundIconButton(
-                            icon: FontAwesomeIcons.plus,
-                            onPressed: () {
-                              setState(
-                                () {
-                                  age++;
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      )
-                    ],
+                  child: ReusableCard(
+                    colour: kActiveCardColor,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    age--;
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    age++;
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                )),
+                ),
               ],
             ),
           ),
@@ -219,13 +231,19 @@ class _InputPageState extends State<InputPage> {
               );
             },
             child: Container(
-              child: Text('CALCULATE'),
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: KLargeButtonTextStyle,
+                ),
+              ),
               color: kBottomContainerColor,
               margin: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(bottom: 20.0),
               width: double.infinity,
               height: kBottomContainerHeight,
             ),
-          )
+          ),
         ],
       ),
     );

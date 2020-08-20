@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
-import 'constans.dart';
-import 'results_page.dart';
+import '../constans.dart';
+import '../components/icon_content.dart';
+import '../components/reusable_card.dart';
+import '../components/bottom_button.dart';
+import '../components/round_icon_button.dart';
+import '../screens/results_page.dart';
+import '../screens/calculator_brain.dart';
 
 enum Gender { male, female }
 
@@ -24,7 +27,7 @@ class _InputPageState extends State<InputPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('BMI CALCULATOR'),
+        title: Text('BMI計算機'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,10 +45,10 @@ class _InputPageState extends State<InputPage> {
                       );
                     },
                     colour: selectedGender == Gender.male
-                        ? kActiveCardColor
-                        : kInactiveCardColor,
+                        ? KActiveCardColor
+                        : KInactiveCardColor,
                     cardChild: IconContent(
-                      label: 'MALE',
+                      label: 'おんな',
                       icon: FontAwesomeIcons.mars,
                     ),
                   ),
@@ -60,10 +63,10 @@ class _InputPageState extends State<InputPage> {
                       );
                     },
                     colour: selectedGender == Gender.female
-                        ? kActiveCardColor
-                        : kInactiveCardColor,
+                        ? KActiveCardColor
+                        : KInactiveCardColor,
                     cardChild: IconContent(
-                      label: 'FEMALE',
+                      label: 'おとこ',
                       icon: FontAwesomeIcons.venus,
                     ),
                   ),
@@ -73,13 +76,13 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
               child: ReusableCard(
-            colour: kActiveCardColor,
+            colour: KActiveCardColor,
             cardChild: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'HEIGHT',
-                  style: kLabelTextStyle,
+                  '身長',
+                  style: KLabelTextStyle,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -88,11 +91,11 @@ class _InputPageState extends State<InputPage> {
                   children: <Widget>[
                     Text(
                       height.toString(),
-                      style: kNumberTextStyle,
+                      style: KNumberTextStyle,
                     ),
                     Text(
                       'cm',
-                      style: kLabelTextStyle,
+                      style: KLabelTextStyle,
                     ),
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
@@ -128,17 +131,17 @@ class _InputPageState extends State<InputPage> {
               children: <Widget>[
                 Expanded(
                   child: ReusableCard(
-                    colour: kActiveCardColor,
+                    colour: KActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'WEIGHT',
-                          style: kLabelTextStyle,
+                          '体重',
+                          style: KLabelTextStyle,
                         ),
                         Text(
                           weight.toString(),
-                          style: kNumberTextStyle,
+                          style: KNumberTextStyle,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -174,17 +177,17 @@ class _InputPageState extends State<InputPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: kActiveCardColor,
+                    colour: KActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'AGE',
-                          style: kLabelTextStyle,
+                          '年齢',
+                          style: KLabelTextStyle,
                         ),
                         Text(
                           age.toString(),
-                          style: kNumberTextStyle,
+                          style: KNumberTextStyle,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -221,49 +224,25 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          GestureDetector(
+          BottomButton(
+            buttonTitle: '計算',
             onTap: () {
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResultPage(),
+                  builder: (context) => ResultPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
                 ),
               );
             },
-            child: Container(
-              child: Center(
-                child: Text(
-                  'CALCULATE',
-                  style: KLargeButtonTextStyle,
-                ),
-              ),
-              color: kBottomContainerColor,
-              margin: EdgeInsets.only(top: 10.0),
-              padding: EdgeInsets.only(bottom: 20.0),
-              width: double.infinity,
-              height: kBottomContainerHeight,
-            ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, @required this.onPressed});
-  final IconData icon;
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      onPressed: onPressed,
-      elevation: 0.0,
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
     );
   }
 }
